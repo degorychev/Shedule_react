@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import RaisedButton from 'material-ui/RaisedButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 import './index.css';
 
 var shed = [];
+var group = [];
 getApi("https://shedule-api.herokuapp.com/shedule/student/%D0%90%D0%98%D0%A1%D0%A2%D0%B1%D0%B4-31/week");
+getGroup("https://shedule-api.herokuapp.com/groups");
 
 function getApi(url){
   var xhttp = new XMLHttpRequest();
@@ -24,13 +27,28 @@ function getApi(url){
   xhttp.send();
 }
 
+function getGroup(url){
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState === 4 && xhttp.status === 200) {
+      var parsethis = xhttp.responseText;
+      
+      group = JSON.parse(parsethis); //КОСТЫЛЬ И ВЕЛОСИПЕД
+    }
+  };
+
+  xhttp.open("GET", url, false); //При асинхронном варианте, данные прогруживаются позже рендера страницы
+  xhttp.send();
+}
+
 class Week extends Component {
   render() {
     return (
       <div className='app'>
         <h3>Расписание</h3>
         <hr />
-        <RaisedButton label="Я компонент Material-UI !!!" />
+        <List data={group} />
         <hr />
         <h4>Понедельник</h4><OneDay data={shed.Monday} /><hr />
         <h4>Вторник</h4><OneDay data={shed.Tuesday} /><hr />
@@ -40,6 +58,39 @@ class Week extends Component {
         <h4>Суббота</h4><OneDay data={shed.Saturday} /><hr />
       </div>
     );
+  }
+}
+
+class List extends Component {  
+  state = {
+    value: 15,
+  };
+
+  handleChange = (event, index, value) => this.setState({value});
+
+  render() {
+    var data = this.props.data;
+    var ListTemplate;
+
+    if (data.length > 0) {
+      ListTemplate = data.map(function(item) {
+        return (
+          <MenuItem value={(item.ID-0)} primaryText={item.Naimenovanie} />
+        )
+      })
+    } else {
+      ListTemplate = <MenuItem value={1} primaryText="Ошибка" />
+    }
+
+    return(
+        <SelectField
+          floatingLabelText="Группа"
+          value={this.state.value}
+          onChange={this.handleChange}
+        >
+        {ListTemplate}
+        </SelectField>
+    )
   }
 }
 
