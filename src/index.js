@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 var shed = [];
-getApi("https://shedule-api.herokuapp.com/shedule/teacher/%D0%A7%D0%BE%D1%80/today");
+getApi("https://shedule-api.herokuapp.com/shedule/student/%D0%90%D0%98%D0%A1%D0%A2%D0%B1%D0%B4-31/week");
 
 function getApi(url){
   var xhttp = new XMLHttpRequest();
@@ -20,54 +20,59 @@ function getApi(url){
   xhttp.send();
 }
 
-class App extends Component {
+class Week extends Component {
   render() {
     return (
       <div className='app'>
-        <h3>Расписание Чоракаева</h3>
-        <Pair data={shed} />
+        <h3>Расписание</h3>
+        <h4>Понедельник</h4><OneDay data={shed.Monday} /><hr />
+        <h4>Вторник</h4><OneDay data={shed.Tuesday} /><hr />
+        <h4>Среда</h4><OneDay data={shed.Wednesday} /><hr />
+        <h4>Четверг</h4><OneDay data={shed.Thursday} /><hr />
+        <h4>Пятница</h4><OneDay data={shed.Friday} /><hr />
+        <h4>Суббота</h4><OneDay data={shed.Saturday} /><hr />
       </div>
     );
   }
 }
 
-class Pair extends Component {
+class OneDay extends Component {
   render() {
     var data = this.props.data;
-    var newsTemplate;
+    var PairsTemplate;
 
     if (data.length > 0) {
-      newsTemplate = data.map(function(item, index) {
+      PairsTemplate = data.map(function(item, index) {
         return (
           <div key={index}>
-            <Article data={item} />
+            <Pair data={item} />
           </div>
         )
       })
     } else {
-      newsTemplate = <p>К сожалению расписания нет</p>
+      PairsTemplate = <p>Пар в этот день нет</p>
     }
     
     return (
       <div className='news'>
-        {newsTemplate}
+        {PairsTemplate}
         <strong className={'news__count ' + (data.length > 0 ? '':'none') }>Всего пар: {data.length}</strong>
       </div>
     );
   }
 }
 
-class Comments extends Component {
-  render() {
-    return (
-      <div className="comments">
-        Нет новостей - комментировать нечего
-      </div>
-    );
-  }
-}
+// class Comments extends Component {
+//   render() {
+//     return (
+//       <div className="comments">
+//         Нет новостей - комментировать нечего
+//       </div>
+//     );
+//   }
+// }
 
-class Article extends Component {
+class Pair extends Component {
   render() {
     var author = this.props.data.disc,
     grup = this.props.data.group,
@@ -89,6 +94,6 @@ class Article extends Component {
 
 
 ReactDOM.render(
-  <App />,
+  <Week />,
   document.getElementById('root')
 );
