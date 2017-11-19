@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import RaisedButton from 'material-ui/RaisedButton';
+
 import './index.css';
 
 var shed = [];
@@ -25,6 +29,9 @@ class Week extends Component {
     return (
       <div className='app'>
         <h3>Расписание</h3>
+        <hr />
+        <RaisedButton label="Я компонент Material-UI !!!" />
+        <hr />
         <h4>Понедельник</h4><OneDay data={shed.Monday} /><hr />
         <h4>Вторник</h4><OneDay data={shed.Tuesday} /><hr />
         <h4>Среда</h4><OneDay data={shed.Wednesday} /><hr />
@@ -94,6 +101,8 @@ class Pair extends Component {
 
 
 ReactDOM.render(
-  <Week />,
+  <MuiThemeProvider>
+  <Week />
+  </MuiThemeProvider>,
   document.getElementById('root')
 );
