@@ -5,11 +5,12 @@
   }
   
   body {
-    background: rgba(0, 102, 255, 0.38);
+    background: rgba(28, 119, 255, 0.788);
     font-family: sans-serif;
+    margin: 0;
   }
   
-  p {
+  /* p {
     margin: 0 0 5px;
   }
   
@@ -29,4 +30,4 @@
   .news__count {
     margin: 10px 0 0 0;
     display: block;
-  }
+  } */
