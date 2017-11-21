@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Bar from './bar';
+import Calend from './calendar';
 
 import './index.css';
+
 
 var shed = [];
 var group = [];
@@ -42,12 +44,13 @@ function getGroup(url){
 }
 
 
-
-
 class App extends Component {
   render(){
     return(
-      <Bar />
+      <div>
+        <Bar />
+        <Calend />
+      </div>
     );  
   }
 }
