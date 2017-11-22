@@ -9,9 +9,9 @@ import './index.css';
 
 
 var shed = [];
-var group = [];
-getApi("https://shedule-api.herokuapp.com/shedule/student/%D0%90%D0%98%D0%A1%D0%A2%D0%B1%D0%B4-31/week");
-getGroup("https://shedule-api.herokuapp.com/groups");
+// var group = [];
+getApi("https://shedule-api.herokuapp.com/shedule/student/%D0%90%D0%98%D0%A1%D0%A2%D0%B1%D0%B4-31/all");
+// getGroup("https://shedule-api.herokuapp.com/groups");
 
 function getApi(url){
   var xhttp = new XMLHttpRequest();
@@ -28,20 +28,20 @@ function getApi(url){
   xhttp.send();
 }
 
-function getGroup(url){
-  var xhttp = new XMLHttpRequest();
+// function getGroup(url){
+//   var xhttp = new XMLHttpRequest();
 
-  xhttp.onreadystatechange = function() {
-    if (xhttp.readyState === 4 && xhttp.status === 200) {
-      var parsethis = xhttp.responseText;
+//   xhttp.onreadystatechange = function() {
+//     if (xhttp.readyState === 4 && xhttp.status === 200) {
+//       var parsethis = xhttp.responseText;
       
-      group = JSON.parse(parsethis); //КОСТЫЛЬ И ВЕЛОСИПЕД
-    }
-  };
+//       group = JSON.parse(parsethis); //КОСТЫЛЬ И ВЕЛОСИПЕД
+//     }
+//   };
 
-  xhttp.open("GET", url, false); //При асинхронном варианте, данные прогруживаются позже рендера страницы
-  xhttp.send();
-}
+//   xhttp.open("GET", url, false); //При асинхронном варианте, данные прогруживаются позже рендера страницы
+//   xhttp.send();
+// }
 
 
 class App extends Component {
@@ -49,7 +49,9 @@ class App extends Component {
     return(
       <div>
         <Bar />
-        <Calend />
+        <Calend
+        data = {shed}
+        />
       </div>
     );  
   }
