@@ -17,7 +17,13 @@ export default class Calend extends Component {
         var events = this.props.data;
         var newevents = []
         events.map((eve) =>
-            newevents.push({"title": eve.title, "start" : new Date(eve.start), "end" : new Date(eve.end)})
+        {
+            var Dstart = new Date(eve.start)
+            Dstart.setHours(Dstart.getHours()-4)
+            var Dend =new Date(eve.end)
+            Dend.setHours(Dend.getHours()-4)
+            newevents.push({"title": eve.title, "start" : Dstart, "end" : Dend})
+        }
         );
         return(
             <BigCalendar 
