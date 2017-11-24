@@ -19,9 +19,9 @@ export default class Calend extends Component {
         events.map((eve) =>
         {
             var Dstart = new Date(eve.start)
-            Dstart.setHours(Dstart.getHours()-4)
+            Dstart.setHours(Dstart.getHours())
             var Dend =new Date(eve.end)
-            Dend.setHours(Dend.getHours()-4)
+            Dend.setHours(Dend.getHours())
             newevents.push({"title": eve.title, "start" : Dstart, "end" : Dend})
         }
         );
