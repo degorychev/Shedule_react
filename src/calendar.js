@@ -27,10 +27,17 @@ export default class Calend extends Component {
         );
         return(
             <BigCalendar 
+            defaultView='week'
+            timeslots = {1}
             events={newevents}
             views={allViews}
-        //   step={60}
-        //   defaultDate={new Date(2015, 3, 1)}
+            step={45}
+            onSelectEvent={event => alert(
+                "Предмет: " + event.title +" ("+ event.Type +")" +
+                "\nПреподаватель: " + event.prepod + 
+                "\nКабинет: " + event.Kab +
+                "\nПодгруппа: " + event.Subg
+            )}
         />
         );  
     }
