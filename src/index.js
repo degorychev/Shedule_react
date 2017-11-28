@@ -8,24 +8,26 @@ import Calend from './calendar';
 import './index.css';
 
 
-var shed = [];
+var shed = getApi("https://shedule-api.herokuapp.com/shedule/student/%D0%90%D0%98%D0%A1%D0%A2%D0%B1%D0%B4-31/all");
 // var group = [];
-getApi("https://shedule-api.herokuapp.com/shedule/student/%D0%90%D0%98%D0%A1%D0%A2%D0%B1%D0%B4-31/all");
+
 // getGroup("https://shedule-api.herokuapp.com/groups");
 
 function getApi(url){
   var xhttp = new XMLHttpRequest();
-
+  var out = [];
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState === 4 && xhttp.status === 200) {
       var parsethis = xhttp.responseText;
       
-      shed = JSON.parse(parsethis); //КОСТЫЛЬ И ВЕЛОСИПЕД
+      out = JSON.parse(parsethis); //КОСТЫЛЬ И ВЕЛОСИПЕД
     }
   };
 
   xhttp.open("GET", url, false); //При асинхронном варианте, данные прогруживаются позже рендера страницы
   xhttp.send();
+
+  return out;
 }
 
 // function getGroup(url){
