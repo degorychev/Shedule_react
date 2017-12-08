@@ -3,11 +3,26 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import { List, ListItem } from 'material-ui/List';
 import { Link, BrowserRouter } from 'react-router-dom';
+import SelectGroup from './groupSelect';
 
-/**
- * A simple example of `AppBar` with an icon on the right.
- * By default, the left icon is a navigation-menu.
- */
+var groups = getApi("https://shedule-api.herokuapp.com/groups");
+
+function getApi(url){
+  var xhttp = new XMLHttpRequest();
+  var out = [];
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState === 4 && xhttp.status === 200) {
+      var parsethis = xhttp.responseText;
+      
+      out = JSON.parse(parsethis);
+    }
+  };
+
+  xhttp.open("GET", url, false);
+  xhttp.send();
+
+  return out;
+}
 
 export default class Bar extends Component {
     constructor(props) {
@@ -27,6 +42,7 @@ export default class Bar extends Component {
             <div>
                 <AppBar
                 onLeftIconButtonTouchTap={this.handleToggle}
+                iconElementRight={<SelectGroup data = {groups}/>}
                 title="Расписание ИАТУ"
                 />
                 <Drawer
